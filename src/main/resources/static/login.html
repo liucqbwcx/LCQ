@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script>
+        var app = angular.module('test',[]);
+        app.controller('sellerController' ,function($scope,$http) {
+            $scope.add=function () {
+                $http.post('../query/list3',$scope.entity ).success(
+                    function (response) {//result
+                            $scope.user=response;
+                            alert($scope.user);
+                    }
+                );
+            }
+        })
+
+    </script>
+</head>
+<body ng-app="test" ng-controller="sellerController">
+    <form>
+        <span>登陆名</span>
+        <input type="text" ng-model="entity.username" placeholder="登陆名">
+        <span>密码</span>
+        <input type="password" ng-model="entity.password" placeholder="密码">
+        <button ng-click="add()">提交</button>
+    </form>
+    <table>
+        <tr>
+            <td>{{user.uId}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.password}}</td>
+        </tr>
+    </table>
+</body>
+</html>
